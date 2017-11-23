@@ -1,0 +1,26 @@
+<div class = "row">
+  <div class = "col-md-6 col-md-offset-3">
+    <div class = "well">
+      <h1>Welcome To <%= @results[:location] %>!</h1>
+      <div class = "row">
+        <div class = "col-md-7">
+          <p><em>What's the weather like?</em></p>
+          <p>
+              Temperature is: <%= @results[:temp_f] %>° F / <%= @results[:temp_c] %>° C 
+          </p>
+          <p>
+              Feels like: <%= @results[:real_feel] %>° C
+          </p>
+        </div>    
+        <div class = "col-md-5">
+            <p>
+            <%= @results[:weather_words] %> <%= image_tag @results[:weather_icon] if @results[:weather_icon] %> 
+            </p>
+            <p>
+            <%=link_to "Full Forecast", @results[:forecast_link], target: "_blank" %>
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

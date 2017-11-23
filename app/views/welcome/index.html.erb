@@ -1,0 +1,52 @@
+<div class="row">
+  <div class="col-md-6 col-md-offset-1">
+  	<div class="well">
+	    <h1>Look Up Your Local Forecast</h1>
+	    <p>What's the weather like in your city?</p>
+	    <div>
+        <%= form_with local: true, url: welcome_index_path, method: :get do |form| %>
+		    	<%= form.text_field :city, placeholder: "City", class: "form-control", value: @city, required: true %><br />
+			    <%= form.submit "Check Weather", class: "btn btn-primary" %>
+				<% end %>
+	    </div>
+		</div>
+  </div>
+</div>
+
+<% if @multiple_results %>
+  Multiples ciudades encontradas
+  <% @multiple_results.each do |city| %>
+    <%= city["name"] %>
+    <%= city["state"] %>
+    <%= link_to "#{city["name"]} - #{city["state"]} - #{city["country"]}", welcome_index_path(q: city['l']) %>
+  <% end %>
+<% end %>
+
+<% if @results[:location] %>
+  <div class = "row">
+    <div class = "col-md-6 col-md-offset-3">
+      <div class = "well">
+        <h1>Welcome To <%= @results[:location] %>!</h1>
+        <div class = "row">
+          <div class = "col-md-7">
+            <p><em>What's the weather like?</em></p>
+            <p>
+                Temperature is: <%= @results[:temp_f] %>° F / <%= @results[:temp_c] %>° C 
+            </p>
+            <p>
+                Feels like: <%= @results[:real_feel] %>° C
+            </p>
+          </div>    
+          <div class = "col-md-5">
+              <p>
+              <%= @results[:weather_words] %> <%= image_tag @results[:weather_icon] if @results[:weather_icon] %> 
+              </p>
+              <p>
+              <%=link_to "Full Forecast", @results[:forecast_link], target: "_blank" %>
+              </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
